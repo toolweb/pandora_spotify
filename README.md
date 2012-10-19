@@ -8,9 +8,28 @@ How To
 
 Create a new bookmark and paste the following code in the `location` field:
 
-    javascript: if(window.location.hostname == "www.pandora.com"){
-      var searchString="spotify:search: track:'" + $('.songTitle').html() + "' AND album:'" + $('.albumTitle').html() + "'";
-      location.href= searchString;
+    javascript:function getTrackTitle(){return $(".songTitle").html()}function getAlbumTitle(){return $(".albumTitle").html()}function trimBraces(a){return a.split("(")[0]}if(window.location.hostname=="www.pandora.com"){var strTrackTitle=trimBraces(getTrackTitle());var strAlbumTitle=trimBraces(getAlbumTitle());var searchString="spotify:search: track:'"+strTrackTitle+"' AND album:'"+strAlbumTitle+"'";location.href=searchString}
+
+Non-minified:
+
+    javascript:
+    if(window.location.hostname == "www.pandora.com"){
+        var strTrackTitle = trimBraces(getTrackTitle());
+    	var strAlbumTitle = trimBraces(getAlbumTitle());
+    	var searchString="spotify:search: track:'" + strTrackTitle + "' AND album:'" + strAlbumTitle + "'";
+    	location.href= searchString;
+    }
+    
+    function getTrackTitle(){
+    	return $('.songTitle').html();
+    }
+    
+    function getAlbumTitle(){
+    	return $('.albumTitle').html();
+    }
+    
+    function trimBraces(strValue){
+    	return strValue.split('(')[0];
     }
     
     
